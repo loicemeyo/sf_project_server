@@ -1,0 +1,1 @@
+export const userAccountsTable = 'user_accounts';
