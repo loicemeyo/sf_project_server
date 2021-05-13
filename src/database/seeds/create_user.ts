@@ -7,9 +7,9 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries
   await knex(userAccountsTable).insert([
-    { phone: "phone1", email: "email1@mail.com", password: "password1" },
-    { phone: "phone2", email: "email2@mail.com", password: "password1" },
-    { phone: "phone3", email: "email3@mail.com", password: "password1" },
-    { phone: "phone4", email: "email4@mail.com", password: "password1" },
+    { phone: "phone1", email: "email1@mail.com", password: "password1", role: "admin", is_authenticated: "true" },
+    { phone: "phone2", email: "email2@mail.com", password: "password1", role: "user", is_authenticated: "false"  },
+    { phone: "phone3", email: "email3@mail.com", password: "password1", role: "user", is_authenticated: "false" },
+    { phone: "phone4", email: "email4@mail.com", password: "password1", role: "user", is_authenticated: "false" },
   ]);
 }
