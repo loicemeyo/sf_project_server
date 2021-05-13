@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from "express";
-// import { getUsersRouter } from "../users/users.routes";
+import { getUsersRouter } from "../users/users.routes";
 
 export class App {
   private expressApp: Application;
@@ -16,7 +16,7 @@ export class App {
       res.status(200).send("okay, welcome");
     });
 
-    // app.use('/users', getUsersRouter());
+    app.use('/users', getUsersRouter());
     return app;
   }
 

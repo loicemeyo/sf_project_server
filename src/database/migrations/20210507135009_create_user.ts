@@ -7,6 +7,8 @@ const createUserAccountsTable = async (knex: Knex): Promise<void> => {
     table.string("phone").nullable();
     table.string("email").nullable().unique();
     table.string("password").notNullable();
+    table.string("role").nullable().defaultTo('user');
+    table.string("is_authenticated").defaultTo('false');
   });
 };
 
