@@ -1,5 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import { getUsersRouter } from "../users/users.routes";
+import { getBookingsRouter } from "../bookings/bookings.routes";
+import { checkUserAuthenticated } from "../users/helpers";
 
 declare global{
   namespace Express {
@@ -25,6 +27,7 @@ export class App {
     });
 
     app.use('/users', getUsersRouter());
+    app.use('/bookings', checkUserAuthenticated, getBookingsRouter())
     return app;
   }
 
