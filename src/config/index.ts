@@ -15,6 +15,11 @@ const envVariablesSchema = joi
     DB_HOST: joi.string().required(),
     SECRET_KEY: joi.string().required(),
     JWT_EXPIRATION: joi.string().default('1h'),
+    MAIL_USER: joi.string().required(),
+    MAIL_PASS: joi.string().required(),
+    CLIENT_ID: joi.string().required(),
+    CLIENT_SECRET: joi.string().required(),
+    REFRESH_TOKEN: joi.string().required(),
   })
   .unknown()
   .required();
@@ -36,6 +41,13 @@ export interface AppConfig {
   jwt: {
     secretKey: string;
     expiresIn: string;
+  };
+  mail: {
+    mailUser: string;
+    mailPass: string;
+    oAuthClientId: string;
+    oAuthClientSecret: string;
+    refreshToken: string;
   };
 }
 
@@ -64,6 +76,13 @@ export const getConfig = (): AppConfig => {
         secretKey: envVariables.SECRET_KEY,
         expiresIn: envVariables.JWT_EXPIRATION,
       },
+      mail: {
+        mailUser: envVariables.MAIL_USER,
+        mailPass: envVariables.MAIL_PASS,
+        oAuthClientId: envVariables.CLIENT_ID,
+        oAuthClientSecret: envVariables.CLIENT_SECRET,
+        refreshToken: envVariables.REFRESH_TOKEN,
+      }
     };
   }
 
