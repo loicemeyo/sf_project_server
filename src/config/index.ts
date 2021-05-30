@@ -19,6 +19,11 @@ const envVariablesSchema = joi
     USER2_EMAIL: joi.string().required(),
     USER1_PASSWORD: joi.string().required(),
     USER2_PASSWORD: joi.string().required(),
+    MAIL_USER: joi.string().required(),
+    MAIL_PASS: joi.string().required(),
+    CLIENT_ID: joi.string().required(),
+    CLIENT_SECRET: joi.string().required(),
+    REFRESH_TOKEN: joi.string().required(),
   })
   .unknown()
   .required();
@@ -47,6 +52,13 @@ export interface AppConfig {
     user1Password: string;
     user2Password: string; 
   }
+  mail: {
+    mailUser: string;
+    mailPass: string;
+    oAuthClientId: string;
+    oAuthClientSecret: string;
+    refreshToken: string;
+  };
 }
 
 let config: AppConfig;
@@ -79,6 +91,13 @@ export const getConfig = (): AppConfig => {
         user2Email: envVariables.USER2_EMAIL,
         user1Password: envVariables.USER1_PASSWORD,
         user2Password: envVariables.USER1_PASSWORD,
+      },
+      mail: {
+        mailUser: envVariables.MAIL_USER,
+        mailPass: envVariables.MAIL_PASS,
+        oAuthClientId: envVariables.CLIENT_ID,
+        oAuthClientSecret: envVariables.CLIENT_SECRET,
+        refreshToken: envVariables.REFRESH_TOKEN,
       }
     };
   }
