@@ -3,7 +3,7 @@ export interface UserAccount {
     email: string;
     password: string;
     role: string;
-    isAuthenticated: boolean;
+    isVerified: boolean;
 }
 
 export interface RawUserAccount extends UserAccount {

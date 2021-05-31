@@ -10,6 +10,14 @@ class UserResource {
     const createdUser = await query;
     return createdUser[0];
   }
+
+  public async loginUser(user: UserAccount): Promise<RawUserAccount>{
+    const query = knexInstance<RawUserAccount>(userAccountsTable).where({ 
+      email: user.email 
+    }).select().then(result => result[0]);
+    const currentUser = await query;
+    return currentUser;
+  }
 }
 
 export const userResource = new UserResource();
