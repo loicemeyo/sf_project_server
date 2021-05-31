@@ -1,5 +1,6 @@
 import {Request, Response, Router} from "express";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 import {userService} from "./users.service";
 import {getConfig} from '../config';
 
@@ -9,6 +10,8 @@ export function getUsersRouter(): Router {
   const userRouter =  Router();
   userRouter.post('/', async (req: Request, res: Response) => {
     try{
+      const salt = bcrypt.genSaltSync(10); 
+      req.body.password = await bcrypt.hash(req.body.password, salt)
       const createdUser = await userService.registerUser(req.body)
       res.status(201).json({message: 'success', createdUser})
     } catch (error){
@@ -23,15 +26,16 @@ export function getUsersRouter(): Router {
         return res.status(401).json({message: 'No user with that email'})
       } 
       if(!currentUser.isVerified) {
-        res.status(403).json({message: 'Unauthorized Access! Unverified Account'})
-      } else if( 
-        currentUser.isVerified 
-        && (req.body.password !== currentUser.password)) {
-          res.status(401).json({message: 'Wrong password!'})
-      } else {
+        return res.status(403).json({
+          message: 'Unauthorized Access! Unverified Account!'
+        })
+      } 
+      if (bcrypt.compareSync(req.body.password, currentUser.password)) {
         const token = await jwt.sign(currentUser, secretKey, { expiresIn: expiresIn })
-        res.status(200).json({message: 'success', role: currentUser.role, token})
-      }
+        res.status(200).json({message: 'success', role: currentUser.role, token}) 
+       } else {
+        res.status(401).json({message: 'Wrong password!'})
+       }
     } catch (error){
       res.status(500).json({message: error.message})
     }
