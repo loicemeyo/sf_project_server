@@ -34,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "0.21.15",
     "knex-stringcase": "^1.4.5",
+    "nodemailer": "^6.6.1",
     "pg": "^8.6.0"
   }
 }
