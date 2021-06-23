@@ -1,6 +1,14 @@
 import express, { Application, Request, Response } from "express";
 import { getUsersRouter } from "../users/users.routes";
 
+declare global{
+  namespace Express {
+    interface Request {
+        currentUser: { role: string, email: string } | null
+    }
+  }
+}
+
 export class App {
   private expressApp: Application;
 
